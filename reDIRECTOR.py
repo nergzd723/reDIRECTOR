@@ -3,7 +3,7 @@ from matrix_client.api import MatrixHttpApi
 from matrix_client.client import MatrixClient
 from matrix_client.room import Room
 
-class Director:
+class Redirector:
 	def __init__(self):
 		self.BOTUSERNAME = "pmos_redirector_bot"
 		self.BOTPASSWORD = "pmossamplepass"
@@ -23,11 +23,11 @@ class Director:
 	def callback_event(room, event):
 		if event.get("content").get("membership") == "join":
 			user_id = event.get("sender")
-			d.target_room.send_html('This room is not official postmarketOS room. Please join the <a href="https://matrix.to/#/#porting:postmarketos.org">#porting:postmarketos.org</a> room')
+			d.target_room.send_html('This room is not an official postmarketOS room. Please join the <a href="https://matrix.to/#/#porting:postmarketos.org">#porting:postmarketos.org</a> room!')
 			try:
 				d.APIWrapper.invite_user(d.realRID, user_id)
 			except:
 				pass # user already joined the rooms
 if __name__ == "__main__":
-	d = Director()
+	d = Redirector()
 	d.mainThread()
